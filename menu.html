@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة الطعام - مطعم الأحلام</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* أنماط إضافية خاصة بصفحة القائمة */
+        .menu-page {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .menu-tab {
+            padding: 10px 25px;
+            margin: 0 5px 10px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-tab:hover,
+        .menu-tab.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+        
+        .menu-category {
+            margin-bottom: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .menu-category h3 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #eee;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-left: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-info h4 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .item-info p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        .item-info .ingredients {
+            font-style: italic;
+            color: #888;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .item-price {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .special-badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .vegetarian-badge {
+            background-color: #27ae60;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        .spicy-badge {
+            background-color: #e67e22;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-tab {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+            
+            .item-image {
+                width: 80px;
+                height: 80px;
+                margin-left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>  مطعم  <span>  الأحلام   </span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="gallery.html">معرض الصور</a></li>
+                    <li><a href="menu.html" class="active">قائمة الطعام</a></li>
+                    <li><a href="booking.html">حجز طاولة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- صفحة قائمة الطعام -->
+    <section class="menu-page">
+        <div class="container">
+            <h2 class="section-title">قائمة الطعام</h2>
+            
+            <!-- تبويبات القائمة -->
+            <div class="menu-tabs">
+                <button class="menu-tab active" data-tab="all">الكل</button>
+                <button class="menu-tab" data-tab="starters">المقبلات</button>
+                <button class="menu-tab" data-tab="main">الأطباق الرئيسية</button>
+                <button class="menu-tab" data-tab="desserts">الحلويات</button>
+                <button class="menu-tab" data-tab="drinks">المشروبات</button>
+            </div>
+            
+            <!-- قسم المقبلات -->
+            <div class="menu-category" id="starters">
+                <h3><i class="fas fa-utensils"></i> المقبلات</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="سلطة سيزر" class="item-image">
+                        <div class="item-info">
+                            <h4>سلطة سيزر <span class="vegetarian-badge">نباتي</span></h4>
+                            <p>سلطة كلاسيكية بلمسة خاصة</p>
+                            <p class="ingredients">خس روماني، كروتونات، جبن بارميزان، صوص سيزر خاص</p>
+                        </div>
+                        <span class="item-price">25 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="بروشيتا" class="item-image">
+                        <div class="item-info">
+                            <h4>بروشيتا <span class="vegetarian-badge">نباتي</span></h4>
+                            <p>خبز إيطالي محمص مع طماطم طازجة</p>
+                            <p class="ingredients">خبز تشاباتا، طماطم، ريحان، زيت زيتون بكر</p>
+                        </div>
+                        <span class="item-price">30 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="سبرينغ رول" class="item-image">
+                        <div class="item-info">
+                            <h4>سبرينغ رول <span class="special-badge">الأكثر طلباً</span></h4>
+                            <p>لفائف رقيقة مقرمشة</p>
+                            <p class="ingredients">خضار طازجة، جمبري، صوص حلو وحار</p>
+                        </div>
+                        <span class="item-price">35 ريال</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الأطباق الرئيسية -->
+            <div class="menu-category" id="main">
+                <h3><i class="fas fa-drumstick-bite"></i> الأطباق الرئيسية</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="ستيك لحم" class="item-image">
+                        <div class="item-info">
+                            <h4>ستيك لحم <span class="special-badge">جديد</span></h4>
+                            <p>قطعة ستيك مشوية باحترافية</p>
+                            <p class="ingredients">250 جرام لحم، خضار مشوي، بطاطس، صوص الفلفل</p>
+                        </div>
+                        <span class="item-price">120 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="/باستا.jfif" alt="باستا ألفريدو" class="item-image">
+                        <div class="item-info">
+                            <h4>باستا ألفريدو <span class="vegetarian-badge">نباتي</span></h4>
+                            <p>باستا كريمية بالجبنة والفطر</p>
+                            <p class="ingredients">بينيه، كريمة، جبنة بارميزان، فطر، ثوم</p>
+                        </div>
+                        <span class="item-price">85 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="شيش طاووق" class="item-image">
+                        <div class="item-info">
+                            <h4>شيش طاووق <span class="spicy-badge">حار</span></h4>
+                            <p>دجاج مشوي على الفحم</p>
+                            <p class="ingredients">قطع دجاج، خضار مشوي، أرز بسمتي، صوص ثوم</p>
+                        </div>
+                        <span class="item-price">75 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="سمك سلمون" class="item-image">
+                        <div class="item-info">
+                            <h4>سمك سلمون</h4>
+                            <p>سمك سلمون مشوي مع صلصة الليمون</p>
+                            <p class="ingredients">فيليه سلمون، هريسة ليمون، خضار سوتيه</p>
+                        </div>
+                        <span class="item-price">110 ريال</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الحلويات -->
+            <div class="menu-category" id="desserts">
+                <h3><i class="fas fa-ice-cream"></i> الحلويات</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="/تشيز كيك.jfif" alt="تشيز كيك" class="item-image">
+                        <div class="item-info">
+                            <h4>تشيز كيك <span class="special-badge">الأكثر طلباً</span></h4>
+                            <p>تشيز كيك كلاسيكي مع توت طازج</p>
+                            <p class="ingredients">كريمة جبنة، بسكويت، توت، صوص كراميل</p>
+                        </div>
+                        <span class="item-price">45 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="تيراميسو" class="item-image">
+                        <div class="item-info">
+                            <h4>تيراميسو</h4>
+                            <p>حلوى إيطالية تقليدية</p>
+                            <p class="ingredients">بسكويت ليدي فينغر، قهوة، ماسكاربوني، كاكاو</p>
+                        </div>
+                        <span class="item-price">50 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="موس الشوكولاتة" class="item-image">
+                        <div class="item-info">
+                            <h4>موس الشوكولاتة</h4>
+                            <p>كريمة شوكولاتة خفيفة</p>
+                            <p class="ingredients">شوكولاتة داكنة، كريمة، سكر، بيض</p>
+                        </div>
+                        <span class="item-price">40 ريال</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم المشروبات -->
+            <div class="menu-category" id="drinks">
+                <h3><i class="fas fa-glass-martini-alt"></i> المشروبات</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="عصير طازج" class="item-image">
+                        <div class="item-info">
+                            <h4>عصير طازج <span class="vegetarian-badge">نباتي</span></h4>
+                            <p>اختر من: برتقال، فراولة، مانجو، أناناس</p>
+                        </div>
+                        <span class="item-price">20 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="مشروبات غازية" class="item-image">
+                        <div class="item-info">
+                            <h4>مشروبات غازية</h4>
+                            <p>كوكاكولا، سبرايت، فانتا، ميرندا</p>
+                        </div>
+                        <span class="item-price">12 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="قهوة عربية" class="item-image">
+                        <div class="item-info">
+                            <h4>قهوة عربية</h4>
+                            <p>قهوة سعودية أصيلة</p>
+                        </div>
+                        <span class="item-price">15 ريال</span>
+                    </div>
+                    <div class="menu-item">
+                        <img src="/شاي أخضر.jfif" alt="شاي أعشاب" class="item-image">
+                        <div class="item-info">
+                            <h4>شاي أعشاب <span class="vegetarian-badge">نباتي</span></h4>
+                            <p>اختر من: نعناع، كمون، يانسون، زنجبيل</p>
+                        </div>
+                        <span class="item-price">15 ريال</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>مطعم الأحلام</h3>
+                    <p>متخصصون في تقديم تجربة طعام فريدة منذ عام 2010</p>
+                </div>
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="gallery.html">معرض الصور</a></li>
+                        <li><a href="menu.html">قائمة الطعام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>اتصل بنا</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 0556894661</li>
+                        <li><i class="fas fa-envelope"></i> abdou.benmessaouda@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> باتنة، تيمقاد، الجزائر</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 مطعم الأحلام. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript للتحكم بين تبويبات القائمة
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.menu-tab');
+            const categories = document.querySelectorAll('.menu-category');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // إزالة الفعالية من جميع التبويبات
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // إضافة الفعالية للتبويب المحدد
+                    this.classList.add('active');
+                    
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    if (tabId === 'all') {
+                        // عرض جميع الأقسام
+                        categories.forEach(cat => cat.style.display = 'block');
+                    } else {
+                        // إخفاء جميع الأقسام ثم عرض القسم المحدد فقط
+                        categories.forEach(cat => cat.style.display = 'none');
+                        document.getElementById(tabId).style.display = 'block';
+                    }
+                });
+            });
+        });
+    </script>
+<script src="script.js"></script>
+</body>
+</html>

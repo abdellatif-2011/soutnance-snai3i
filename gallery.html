@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الصور - مطعم الأحلام</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>  مطعم  <span>  الأحلام   </span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="gallery.html" class="active">معرض الصور</a></li>
+                    <li><a href="menu.html">قائمة الطعام</a></li>
+                    <li><a href="booking.html">حجز طاولة</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- قسم معرض الصور -->
+    <section class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">معرض الصور</h2>
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="interior">الديكور الداخلي</button>
+                <button class="filter-btn" data-filter="food">الأطباق</button>
+                <button class="filter-btn" data-filter="events">المناسبات</button>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item interior">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="ديكور داخلي">
+                    <div class="overlay">
+                        <h3>الصالة الداخلية</h3>
+                        <p>أجواء راقية ومريحة</p>
+                    </div>
+                </div>
+                <div class="gallery-item food">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="طبق رئيسي">
+                    <div class="overlay">
+                        <h3>أطباقنا المميزة</h3>
+                        <p>أشهى المأكولات العالمية</p>
+                    </div>
+                </div>
+                <div class="gallery-item events">
+                    <img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="مناسبة خاصة">
+                    <div class="overlay">
+                        <h3>المناسبات الخاصة</h3>
+                        <p>أجواء لا تنسى</p>
+                    </div>
+                </div>
+                <div class="gallery-item interior">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="زاوية المطعم">
+                    <div class="overlay">
+                        <h3>زاوية المطعم</h3>
+                        <p>تصميم أنيق وعصري</p>
+                    </div>
+                </div>
+                <div class="gallery-item food">
+                    <img src="https://www2.0zz0.com/2025/09/23/12/912913409.png" alt="حلويات">
+                    <div class="overlay">
+                        <h3>تشكيلة الحلويات</h3>
+                        <p>ألذ الحلويات العالمية</p>
+                    </div>
+                </div>
+                <div class="gallery-item events">
+                    <img src="https://www2.0zz0.com/2025/09/23/13/402832547.png" alt="حفلة">
+                    <div class="overlay">
+                        <h3>حفلات الأعياد</h3>
+                        <p>احتفالات مميزة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>مطعم الأحلام</h3>
+                    <p>متخصصون في تقديم تجربة طعام فريدة منذ عام 2010</p>
+                </div>
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="gallery.html">معرض الصور</a></li>
+                        <li><a href="menu.html">قائمة الطعام</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>اتصل بنا</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 0556894661</li>
+                        <li><i class="fas fa-envelope"></i> abdou.benmessaouda@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> باتنة، تيمقاد، الجزائر</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 مطعم الأحلام. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // وظيفة تصفية معرض الصور
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // إزالة النشاط من جميع الأزرار
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // إضافة النشاط للزر المحدد
+            this.classList.add('active');
+            
+            const filterValue = this.getAttribute('data-filter');
+            
+            galleryItems.forEach(item => {
+                if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+    
+    // تأثيرات عند التمرير (لتحسين الأداء سنستخدم Intersection Observer)
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // تطبيق تأثير الظهور على عناصر المعرض
+    galleryItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(item);
+    });
+    
+    // تحسين القائمة المتنقلة للجوّال
+    const mobileMenuBtn = document.querySelector('.mobile-menu');
+    const navMenu = document.querySelector('nav ul');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    }
+});
+</script>
+</body>
+</html>
